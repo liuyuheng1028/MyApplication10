@@ -9,7 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.liuyuheng.a202304100228.myapplication.R
 import com.liuyuheng.a202304100228.myapplication.model.Restaurant
 
-class RestaurantAdapter(private val restaurants: List<Restaurant>) : RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder>() {
+class RestaurantAdapter(
+    private val restaurants: List<Restaurant>,
+    private val onItemClick: (Restaurant) -> Unit = {},
+    private val onFavoriteClick: (Restaurant) -> Unit = {}
+) : RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder>() {
 
     class RestaurantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nameTextView: TextView = view.findViewById(R.id.restaurant_name)
@@ -35,6 +39,10 @@ class RestaurantAdapter(private val restaurants: List<Restaurant>) : RecyclerVie
             holder.descriptionTextView.text = restaurant.description
             holder.cuisineTypeTextView.text = restaurant.cuisineType
             holder.priceRangeTextView.text = restaurant.priceRange
+
+            holder.itemView.setOnClickListener {
+                onItemClick(restaurant)
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         }

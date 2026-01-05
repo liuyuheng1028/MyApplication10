@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.liuyuheng.a202304100228.myapplication.R
 import com.liuyuheng.a202304100228.myapplication.model.Recipe
 
-class RecipeAdapter(private val recipes: List<Recipe>) : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
+class RecipeAdapter(
+    private val recipes: List<Recipe>,
+    private val onItemClick: (Recipe) -> Unit = {}
+) : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
     class RecipeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nameTextView: TextView = view.findViewById(R.id.recipe_name)
@@ -36,6 +39,10 @@ class RecipeAdapter(private val recipes: List<Recipe>) : RecyclerView.Adapter<Re
             holder.cookingTimeTextView.text = "烹饪时间: ${recipe.cookingTime}"
             holder.difficultyTextView.text = "难度: ${recipe.difficulty}"
             holder.categoryTextView.text = "分类: ${recipe.category}"
+
+            holder.itemView.setOnClickListener {
+                onItemClick(recipe)
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         }
