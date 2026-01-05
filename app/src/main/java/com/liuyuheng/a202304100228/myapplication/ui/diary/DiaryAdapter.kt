@@ -14,7 +14,11 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class DiaryAdapter(private val diaries: List<Diary>) : RecyclerView.Adapter<DiaryAdapter.DiaryViewHolder>() {
+class DiaryAdapter(
+    private val diaries: List<Diary>,
+    private val onItemClick: (Diary) -> Unit = {},
+    private val onItemLongClick: (Diary) -> Unit = {}
+) : RecyclerView.Adapter<DiaryAdapter.DiaryViewHolder>() {
 
     class DiaryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val restaurantNameTextView: TextView = view.findViewById(R.id.diary_restaurant_name)
@@ -40,11 +44,25 @@ class DiaryAdapter(private val diaries: List<Diary>) : RecyclerView.Adapter<Diar
             val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
             holder.dateTextView.text = dateFormat.format(diary.createTime)
             
+            holder.itemView.setOnClickListener {
+                onItemClick(diary)
+            }
+            
+            holder.itemView.setOnLongClickListener {
+                onItemLongClick(diary)
+                true
+            }
+            
             if (diary.imagePath.isNotEmpty()) {
                 val imageFile = File(diary.imagePath)
                 if (imageFile.exists()) {
-                    holder.imageView.setImageURI(android.net.Uri.fromFile(imageFile))
-                    holder.imageView.visibility = View.VISIBLE
+                    try {
+                        holder.imageView.setImageURI(android.net.Uri.fromFile(imageFile))
+                        holder.imageView.visibility = View.VISIBLE
+                    } catch (e: Exception) {
+                        holder.imageView.setImageResource(R.drawable.ic_launcher_background)
+                        holder.imageView.visibility = View.VISIBLE
+                    }
                 } else {
                     holder.imageView.visibility = View.GONE
                 }
