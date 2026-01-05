@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    
+    <color name="purple_primary">#6A1B9A</color>
+    <color name="purple_primary_dark">#4A148C</color>
+    <color name="purple_primary_light">#9C4DCC</color>
+    <color name="gold_accent">#FFD700</color>
+    <color name="gold_accent_dark">#FFA000</color>
+    <color name="gold_accent_light">#FFECB3</color>
+    <color name="purple_gold_gradient_start">#6A1B9A</color>
+    <color name="purple_gold_gradient_end">#FFD700</color>
+    <color name="purple_background">#F3E5F5</color>
+    <color name="gold_text">#B8860B</color>
+</resources>
